@@ -5,6 +5,7 @@
 package be.drone2.renderneon.renderneonjava;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,5 +25,13 @@ public class ZinService {
         return  zinRepository.findByNaamBevat(woord);
     }
     
+    int geefAantalKarakters (int id){
+        Optional<Zin> optZin = zinRepository.findZinById(id);
+        if (optZin.isPresent()){
+            VerwerkZin verwerkZin = new VerwerkZin();
+            return verwerkZin.geefAantalKarakters(optZin.get());
+        }
+        return 0;
+    }
     
 }

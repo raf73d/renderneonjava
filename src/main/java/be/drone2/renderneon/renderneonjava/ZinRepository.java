@@ -1,6 +1,7 @@
 package be.drone2.renderneon.renderneonjava;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
@@ -28,4 +29,14 @@ public class ZinRepository {
                """;
        return jdbcClient.sql(sql).param("%" + woord + "%").query(Zin.class).list();
    }
+   
+   Optional<Zin> findZinById (int id){
+       var sql="""
+               select id, uitspraak, datum
+               from zinnen
+               where id= ?
+               """;
+       return jdbcClient.sql(sql).param(id).query(Zin.class).optional();
+   }
+   
 }

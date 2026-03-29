@@ -23,4 +23,10 @@ public class ZinController {
     List<Zin> findByNaamBevat(@RequestParam String naamBevat) { 
     return zinService.findByNaamBevat(naamBevat); 
 } 
+    
+    @GetMapping(value = "idzin", params = "id")
+    int geefAantalKarakters (@RequestParam int id){
+        return zinService.geefAantalKarakters(id);
+    }
+    
 }

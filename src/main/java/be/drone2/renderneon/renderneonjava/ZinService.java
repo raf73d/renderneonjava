@@ -24,7 +24,7 @@ public class ZinService {
     List<Zin> findByNaamBevat (String woord){
         return  zinRepository.findByNaamBevat(woord);
     }
-    
+    // onderstaande method wordt niet gebruikt in uiteindelijk produkt
     int geefAantalKarakters (int id){
         Optional<Zin> optZin = zinRepository.findZinById(id);
         if (optZin.isPresent()){
@@ -32,6 +32,11 @@ public class ZinService {
             return verwerkZin.geefAantalKarakters(optZin.get());
         }
         return 0;
+    }
+    
+    @Transactional
+    long maakUitspraakAan (String uitspraak){
+        return zinRepository.maakUitspraakAan(uitspraak);
     }
     
 }

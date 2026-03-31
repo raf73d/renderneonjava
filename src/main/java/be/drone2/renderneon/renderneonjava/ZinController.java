@@ -7,6 +7,8 @@ package be.drone2.renderneon.renderneonjava;
 import java.util.List;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,10 +25,16 @@ public class ZinController {
     List<Zin> findByNaamBevat(@RequestParam String naamBevat) { 
     return zinService.findByNaamBevat(naamBevat); 
 } 
-    
+    //deze method wordt niet gebruikt.
     @GetMapping(value = "idzin", params = "id")
     int geefAantalKarakters (@RequestParam int id){
         return zinService.geefAantalKarakters(id);
+    }
+    
+    @PostMapping("uitspraaktoevoegen")
+    long maakUitspraakAan (@RequestParam String uitspraak){
+        var id = zinService.maakUitspraakAan(uitspraak);
+        return id;
     }
     
 }

@@ -1,8 +1,10 @@
 package be.drone2.renderneon.renderneonjava;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 /*
@@ -29,7 +31,7 @@ public class ZinRepository {
                """;
        return jdbcClient.sql(sql).param("%" + woord + "%").query(Zin.class).list();
    }
-   
+   //deze method wordt niet gebruikt
    Optional<Zin> findZinById (int id){
        var sql="""
                select id, uitspraak, datum
@@ -39,4 +41,16 @@ public class ZinRepository {
        return jdbcClient.sql(sql).param(id).query(Zin.class).optional();
    }
    
+   long maakUitspraakAan (String uitspraak) {
+        var sql = """
+                  insert into zinnen (uitspraak, datum)
+                  values(?,?)
+                  returning id
+                  """;
+        var keyHolder = new GeneratedKeyHolder();
+        jdbcClient.sql(sql) 
+            .params(uitspraak,LocalDate.now())
+            .update(keyHolder); 
+        return keyHolder.getKey().longValue(); 
+    }
 }
